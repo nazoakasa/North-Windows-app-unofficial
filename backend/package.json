@@ -1,0 +1,13 @@
+{
+  "name": "north-stats",
+  "version": "1.0.0",
+  "private": true,
+  "description": "north-client 利用者数の集計サーバー + Webダッシュボード (依存パッケージなし / Node.js 22.5 以上)",
+  "type": "module",
+  "main": "server.js",
+  "engines": { "node": ">=22.5" },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning server.js",
+    "test": "node --disable-warning=ExperimentalWarning --test \"test/*.test.js\""
+  }
+}

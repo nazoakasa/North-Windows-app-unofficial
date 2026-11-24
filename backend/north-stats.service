@@ -1,0 +1,33 @@
+[Unit]
+Description=north-client usage stats (Node.js)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/north-stats
+EnvironmentFile=/etc/north-stats.env
+Environment=STATS_DB=/var/lib/north-stats/stats.db
+ExecStart=/usr/bin/node --disable-warning=ExperimentalWarning /opt/north-stats/server.js
+Restart=on-failure
+RestartSec=3
+
+# 権限を最小限に
+DynamicUser=yes
+StateDirectory=north-stats
+UMask=0077
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictNamespaces=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=no
+CapabilityBoundingSet=
+
+[Install]
+WantedBy=multi-user.target

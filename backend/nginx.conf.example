@@ -1,0 +1,33 @@
+# /etc/nginx/sites-available/north-stats  (certbot 等で TLS 証明書を取得済みの前提)
+limit_req_zone $binary_remote_addr zone=north_stats:1m rate=30r/m;
+
+server {
+    listen 443 ssl http2;
+    server_name stats.example.com;                    # ← 自分のドメインに変更
+
+    ssl_certificate     /etc/letsencrypt/live/stats.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/stats.example.com/privkey.pem;
+
+    add_header Strict-Transport-Security "max-age=31536000" always;
+
+    # IP を残さない: このサーバーではアクセスログを書かない
+    access_log off;
+    error_log  /var/log/nginx/north-stats.error.log crit;
+
+    client_max_body_size 4k;
+
+    location / {
+        limit_req zone=north_stats burst=20 nodelay;
+        proxy_pass http://127.0.0.1:8787;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;     # STATS_TRUST_PROXY=1 のときだけ使われる
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_read_timeout 15s;
+    }
+}
+
+server {
+    listen 80;
+    server_name stats.example.com;
+    return 301 https://$host$request_uri;
+}

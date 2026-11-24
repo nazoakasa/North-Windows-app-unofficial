@@ -1,0 +1,70 @@
+:root {
+  --bg: #0a0f20; --panel: #121930; --panel2: #18203c; --line: #242c46;
+  --text: #e7e9ea; --gray: #8b98a8; --accent: #e83848; --blue: #4aa3ff; --green: #00ba7c;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { background: linear-gradient(135deg, #0e1e46 0%, #0a0f20 45%, #261035 100%) fixed; }
+body {
+  margin: 0; color: var(--text); min-height: 100vh;
+  font: 15px/1.5 "Yu Gothic UI", "Meiryo UI", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+[hidden] { display: none !important; }
+h1 { font-size: 22px; margin: 0; }
+h2 { font-size: 16px; margin: 0 0 12px; }
+.muted { color: var(--gray); margin: 4px 0 0; }
+.err { color: var(--accent); min-height: 1.4em; margin: 8px 0 0; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 24px 16px 48px; }
+.top { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+.actions { display: flex; gap: 8px; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 18px; margin-bottom: 16px; }
+.panel-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+.panel-head h2 { margin: 0; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.two .panel { margin-bottom: 0; }
+.two { margin-bottom: 16px; }
+@media (max-width: 760px) { .two { grid-template-columns: 1fr; } }
+
+.btn {
+  background: transparent; color: var(--text); border: 1px solid #4a5675; border-radius: 999px;
+  padding: 8px 18px; font: inherit; font-weight: 700; cursor: pointer;
+}
+.btn:hover { background: var(--panel2); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary:hover { filter: brightness(1.08); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+.seg button { background: none; border: 0; color: var(--gray); padding: 6px 14px; font: inherit; cursor: pointer; }
+.seg button.on { background: var(--panel2); color: var(--text); font-weight: 700; }
+
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+@media (max-width: 760px) { .kpis { grid-template-columns: repeat(2, 1fr); } }
+.kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; }
+.kpi .l { color: var(--gray); font-size: 13px; }
+.kpi .v { font-size: 28px; font-weight: 800; letter-spacing: .5px; font-variant-numeric: tabular-nums; }
+.kpi.hot .v { color: var(--accent); }
+
+.chart { position: relative; width: 100%; }
+.chart svg { width: 100%; height: auto; display: block; touch-action: pan-y; }
+.chart .grid { stroke: var(--line); stroke-width: 1; }
+.chart .axis { fill: var(--gray); font-size: 11px; }
+.chart .cursor { stroke: #5b6a8f; stroke-width: 1; stroke-dasharray: 3 3; }
+.tip {
+  position: absolute; pointer-events: none; background: #0c1226; border: 1px solid #3a4666; border-radius: 10px;
+  padding: 6px 10px; font-size: 12.5px; white-space: nowrap; transform: translate(-50%, -100%); z-index: 2;
+}
+.tip b { font-variant-numeric: tabular-nums; }
+.bars { display: grid; gap: 10px; }
+.bar { display: grid; grid-template-columns: 90px 1fr 90px; align-items: center; gap: 12px; }
+.bar .name { color: var(--gray); overflow: hidden; text-overflow: ellipsis; }
+.bar .track { background: var(--panel2); border-radius: 8px; height: 22px; overflow: hidden; }
+.bar .fill { background: var(--accent); height: 100%; border-radius: 8px; min-width: 3px; }
+.bar .num { text-align: right; font-variant-numeric: tabular-nums; }
+.note { margin-top: 20px; font-size: 12.5px; }
+
+.login { display: grid; place-items: center; min-height: 100vh; padding: 16px; }
+.login form { width: min(380px, 100%); display: grid; gap: 12px; }
+.login input {
+  background: var(--bg); color: var(--text); border: 1px solid #4a5675; border-radius: 10px;
+  padding: 12px 14px; font: inherit; width: 100%;
+}
+.login input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
